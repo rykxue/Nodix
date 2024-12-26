@@ -1,0 +1,17 @@
+datasource db {
+  provider = "sqlite" // Change to "postgresql" or "mysql" if needed
+  url      = "file:./dev.db" // Path to your SQLite database file
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Url {
+  id          Int      @id @default(autoincrement())
+  name        String
+  url         String
+  status      String
+  lastChecked DateTime
+  uptime      Int
+}
