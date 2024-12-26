@@ -1,7 +1,7 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 const path = require('path');
-const fetch = require('node-fetch');
+const axios = require('axios');
 
 const app = express();
 const prisma = new PrismaClient();
@@ -23,8 +23,8 @@ app.post('/api/ping', async (req, res) => {
     const { name, url } = req.body;
 
     try {
-        const response = await fetch(url);
-        const status = response.ok ? 'UP' : 'DOWN';
+        const response = await axios.get(url);
+        const status = response.status === 200 ? 'UP' : 'DOWN';
         const lastChecked = new Date();
         const uptime = 0; // Initialize uptime to 0 for new URLs
 
@@ -60,8 +60,8 @@ setInterval(async () => {
         const urls = await prisma.url.findMany();
         for (const url of urls) {
             try {
-                const response = await fetch(url.url);
-                const newStatus = response.ok ? 'UP' : 'DOWN';
+                const response = await axios.get(url.url);
+                const newStatus = response.status === 200 ? 'UP' : 'DOWN';
                 const lastChecked = new Date();
                 const uptime = newStatus === 'UP' ? url.uptime + 60 : url.uptime;
 
@@ -70,11 +70,11 @@ setInterval(async () => {
                     data: { status: newStatus, lastChecked, uptime },
                 });
             } catch (error) {
-                console.error(`Error checking URL ${url.name}:`, error);
+                console.error(`Error checking URL ${url.name}:`, error.message);
             }
         }
     } catch (error) {
-        console.error('Error fetching URLs for periodic check:', error);
+        console.error('Error fetching URLs for periodic check:', error.message);
     }
 }, 60000); // Check every minute
 
