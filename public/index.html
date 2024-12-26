@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nodix | Uptimer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+    	:root {
+    --primary-color: #282c34;
+    --secondary-color: #61dafb;
+    --white-color: #f8f8f2;
+    --bg-color: #282c34;
+    --error-color: #e06c75;
+    --success-color: #98c379;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--white-color);
+    background-color: var(--bg-color);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+header {
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-text h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.header-text .subtitle {
+    color: var(--secondary-color);
+    font-size: 0.875rem;
+}
+
+.header-image {
+    width: 3rem;
+    height: 3rem;
+}
+
+.header-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+main {
+    padding: 2rem 0;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--secondary-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+th {
+    background-color: var(--primary-color);
+}
+
+.status-up {
+    color: var(--success-color);
+}
+
+.status-down {
+    color: var(--error-color);
+}
+
+.add-url-button {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.modal-content {
+    background-color: var(--primary-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 28rem;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.modal-header h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: var(--white-color);
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: var(--bg-color);
+    color: var(--white-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: 0.25rem;
+}
+
+.message {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+}
+
+.message.success {
+    background-color: var(--success-color);
+}
+
+.message.error {
+    background-color: var(--error-color);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.submit-button, .cancel-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.submit-button {
+    background-color: var(--secondary-color);
+    color: black;
+}
+
+.cancel-button {
+    background-color: #6c757d;
+    color: var(--white-color);
+}
+
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+input {
+	outline: none;
+	font-family: 'Orbitron', sans-serif;
+}
+
+button {
+	font-family: 'Orbitron', sans-serif;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>Nodix</h1>
+                    <!--<span class="subtitle">by: Yhana Alvarez</span>-->
+                </div>
+                <div class="header-image">
+                    <img src="https://i.ibb.co/fvb51Nc/IMG-20230826-021447-803-transformed.png" alt="HexClan">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="table-container">
+            <table id="urlTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Last Checked</th>
+                        <th>Uptime</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <button id="addUrlButton" class="add-url-button">
+        <i class="fas fa-plus"></i>
+    </button>
+
+    <div id="addUrlModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add URL</h2>
+                <button id="closeModal" class="close-button"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="addUrlForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" placeholder="ExampleName" required>
+                </div>
+                <div class="form-group">
+                    <label for="url">URL</label>
+                    <input type="url" id="url" placeholder="https://example.com/" required>
+                </div>
+                <div id="message" class="message"></div>
+                <div class="form-actions">
+                    <button type="submit" class="submit-button">Monitor</button>
+                    <button type="button" id="cancelButton" class="cancel-button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="particles-js"></div>
+    
+    <script>
+    	document.addEventListener('DOMContentLoaded', () => {
+    const urlTable = document.getElementById('urlTable');
+    const addUrlButton = document.getElementById('addUrlButton');
+    const addUrlModal = document.getElementById('addUrlModal');
+    const closeModal = document.getElementById('closeModal');
+    const addUrlForm = document.getElementById('addUrlForm');
+    const cancelButton = document.getElementById('cancelButton');
+    const messageDiv = document.getElementById('message');
+
+    function fetchUrls() {
+        fetch('/api/urls')
+            .then(response => response.json())
+            .then(urls => {
+                const tbody = urlTable.querySelector('tbody');
+                tbody.innerHTML = '';
+                urls.forEach(url => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${url.name}</td>
+                        <td class="${url.status === 'UP' ? 'status-up' : 'status-down'}">
+                            <i class="fas fa-${url.status === 'UP' ? 'check-circle' : 'exclamation-circle'}"></i>
+                            ${url.status}
+                        </td>
+                        <td>${new Date(url.lastChecked).toLocaleString()}</td>
+                        <td>${url.uptime} seconds</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching URLs:', error));
+    }
+
+    function showModal() {
+        addUrlModal.style.display = 'flex';
+    }
+
+    function hideModal() {
+        addUrlModal.style.display = 'none';
+        addUrlForm.reset();
+        messageDiv.innerHTML = '';
+        messageDiv.className = 'message';
+    }
+
+    function handleAddUrl(event) {
+        event.preventDefault();
+        const name = document.getElementById('name').value;
+        const url = document.getElementById('url').value;
+
+        fetch('/api/ping', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, url }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                throw new Error(data.error);
+            }
+            messageDiv.textContent = data.message;
+            messageDiv.className = 'message success';
+            setTimeout(() => {
+                hideModal();
+                fetchUrls();
+            }, 2000);
+        })
+        .catch(error => {
+            messageDiv.textContent = error.message;
+            messageDiv.className = 'message error';
+        });
+    }
+
+    addUrlButton.addEventListener('click', showModal);
+    closeModal.addEventListener('click', hideModal);
+    cancelButton.addEventListener('click', hideModal);
+    addUrlForm.addEventListener('submit', handleAddUrl);
+
+    fetchUrls();
+
+    // Initialize particles
+    tsParticles.load("particles-js", {
+        particles: {
+            number: {
+                value: 30,
+                density: {
+                    enable: true,
+                    value_area: 800
+                }
+            },
+            color: {
+                value: "#61dafb"
+            },
+            shape: {
+                type: "circle",
+                stroke: {
+                    width: 0,
+                    color: "#61dafb"
+                },
+            },
+            opacity: {
+                value: 0.5,
+                random: false,
+            },
+            size: {
+                value: 3,
+                random: true,
+            },
+            line_linked: {
+                enable: true,
+                distance: 150,
+                color: "#61dafb",
+                opacity: 0.4,
+                width: 1
+            },
+            move: {
+                enable: true,
+                speed: 2,
+                direction: "none",
+                random: false,
+                straight: false,
+                out_mode: "out",
+                bounce: false,
+            }
+        },
+        interactivity: {
+            detect_on: "canvas",
+            events: {
+                onhover: {
+                    enable: true,
+                    mode: "repulse"
+                },
+                onclick: {
+                    enable: true,
+                    mode: "push"
+                },
+                resize: true
+            },
+        },
+        retina_detect: true
+    });
+});
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-engine@2.9.3/tsparticles.engine.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js"></script>
+</body>
+</html>
