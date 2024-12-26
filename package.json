@@ -1,0 +1,22 @@
+{
+  "name": "Nodix",
+  "version": "1.0.0",
+  "description": "A simple pinger for websites.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "axios": "^1.5.1",
+    "express": "^4.18.2",
+    "path": "^0.12.7",
+    "prisma": "^5.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [],
+  "author": "ZyteLabs",
+  "license": "ISC"
+}
